@@ -1,13 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const menuItems = <>
-    <li>Home</li>
-    <li>Todo</li>
-    <li>sfgsdfg</li>
+    <Link to='/'> <li className='mr-5 text-lg'>Home</li></Link>
+    <Link to='/todo'> <li className='mr-5 text-lg'>Todo-List</li></Link>
+    <Link to='/'> <li className='mr-5 text-lg'>Calender</li></Link>
+
+
+    
+    
     </>
     return (
-        <div className="navbar bg-base-300">
+        <div className="navbar bg-base-300 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabindex="0" className="btn btn-ghost lg:hidden">

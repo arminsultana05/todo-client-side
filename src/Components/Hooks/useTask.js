@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const useTask = () => {
     const [tasks, setTasks]= useState([])
     useEffect(() => {
-        const url =`http://localhost:5000/tasks`;
+        const url =`https://obscure-river-42440.herokuapp.com/tasks`;
         fetch(url)
             .then(res => res.json())
             .then(data => {

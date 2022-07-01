@@ -1,19 +1,22 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import useTask from './Hooks/useTask';
+import UserItems from './UserItems';
+import swal from 'sweetalert';
 
 const Home = () => {
-    const [tasks, setTasks] = useTask()
-    console.log(tasks);
+    const navigate = useNavigate()
+
+
 
     const handleForm = (e) => {
 
         e.preventDefault();
         const name = e.target.name.value;
-        const email = e.target.email.value
         const description = e.target.description.value;
-        const user = { name,email, description };
+        const user = { name, description };
         console.log(user);
-        const url = `http://localhost:5000/add-task/`
+        const url = `https://obscure-river-42440.herokuapp.com/add-task/`
         fetch(url, {
             method: "POST",
             headers: {
@@ -23,7 +26,9 @@ const Home = () => {
         })
             .then((res) => res.json())
             .then((data) => {
+                swal("Successfully Added!", "You clicked the button!", "success");
                 e.target.reset();
+
 
 
 
@@ -32,29 +37,17 @@ const Home = () => {
 
 
 
-          
+
 
 
     };
-    const handleRemove = (id) =>{
-        const proceed = window.confirm("Are you sure you want to delete?");
-        if(proceed){
-          const url = `http://localhost:5000/tasks/${id}`;
-          fetch(url, {
-            method: "DELETE"
-          })
-          .then(res => res.json())
-          .then( data =>{
-            console.log('deletd data', data);
-          })
-        }
-      }
+
     return (
-        <div className="">
+        <div className="mt-24">
             <div class="card w-96 bg-base-100 shadow-xl flex mx-auto mt-12">
                 <div class="card-body">
                     <h2 class="card-title mx-auto">To-DO APP</h2>
-                    <form onSubmit={handleForm} >
+                    <form onSubmit={handleForm}  >
                         <input className=' w-full border  border-purple-400 mt-3 p-1' type="text" name="name" placeholder='Task-Name' />
                         <br />
 
@@ -67,7 +60,10 @@ const Home = () => {
 
                         </div>
 
-                        <input className='btn w-full mt-5' type="submit" value="Add Task" />
+                        <div  >
+
+                            <input className='btn w-full mt-5' type="submit" value="Add Task" />
+                        </div>
                     </form>
 
 
@@ -75,20 +71,9 @@ const Home = () => {
 
 
             </div>
-            <div className="mt-6 w-3/4 mx-auto">
-                {
-                    tasks.map(task=><UserItems
-                    key={task._id}
-                    task={task}
-                    handleRemove ={handleRemove}
-                 >
 
-                    </UserItems>)
-                }
-            </div>
         </div>
     );
-
 };
 
 export default Home;
